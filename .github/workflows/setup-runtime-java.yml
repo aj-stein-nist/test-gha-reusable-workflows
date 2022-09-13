@@ -1,0 +1,28 @@
+name: OSCAL Automation - Setup Java
+
+on:
+  workflow_call:
+    inputs:
+      java-version:
+        required: false
+        type: string
+        default: 11
+      distribution:
+        required: false
+        type: string
+        default: temurin
+      cache:
+        required: false
+        type: string
+        default: maven
+jobs:
+  configure-oscal-runtimes-java:
+    name: Configure Runtimes for OSCAL
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Configure Java Runtime
+      uses: actions/setup-java@2c7a4878f5d120bd643426d54ae1209b29cc01a3
+      with:
+        java-version: ${{ inputs.java-version }}
+        distribution: ${{ inputs.distribution }}
+      id: configure-runtime-java
