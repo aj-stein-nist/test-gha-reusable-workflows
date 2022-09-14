@@ -12,6 +12,5 @@ on:
 jobs:
   setup-runtimes-java:
     uses: aj-stein-nist/test-gha-reusable-workflows/.github/workflows/setup-runtime-java.yml@main
-    with:
-      uses-dependency-manager: true
-      cache: maven
+  setup-runtimes-python:
+    uses: aj-stein-nist/test-gha-reusable-workflows/.github/workflows/setup-runtime-python.yml@main

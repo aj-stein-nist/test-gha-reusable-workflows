@@ -11,6 +11,10 @@ on:
         required: false
         type: string
         default: temurin
+      uses-dependency-manager:
+        required: false
+        type: boolean
+        default: false
       cache:
         required: false
         type: string
@@ -20,9 +24,17 @@ jobs:
     name: Configure Runtimes for OSCAL
     runs-on: ubuntu-20.04
     steps:
-    - name: Configure Java Runtime
+    - name: Configure Java Runtime (without Dependency Management)
+      if: ${{ inputs.uses-dependency-manager }}
       uses: actions/setup-java@2c7a4878f5d120bd643426d54ae1209b29cc01a3
       with:
         java-version: ${{ inputs.java-version }}
         distribution: ${{ inputs.distribution }}
-      id: configure-runtime-java
+      id: configuration
+    - name: Configure Java Runtime (with Dependency Management)
+      if: ${{ !inputs.uses-dependency-manager }}
+      uses: actions/setup-java@2c7a4878f5d120bd643426d54ae1209b29cc01a3
+      with:
+        java-version: ${{ inputs.java-version }}
+        distribution: ${{ inputs.distribution }}
+      id: configuration

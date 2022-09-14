@@ -1,0 +1,46 @@
+name: OSCAL Automation - Setup Python
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        required: false
+        type: string
+        default: 3.8
+      architecture:
+        required: false
+        type: string
+        default: x64
+      uses-dependency-manager:
+        required: false
+        type: boolean
+        default: false
+      cache:
+        required: false
+        type: string
+        default: pip
+      cache-dependency-path:
+        required: false
+        type: string
+        default: '**/*/requirements.txt'
+jobs:
+  configure-oscal-runtimes-python:
+    name: Configure Runtimes for OSCAL
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Configure Python Runtime (without Dependency Management)
+      if: ${{ inputs.uses-dependency-manager }}
+      uses: actions/setup-python@98f2ad02fd48d057ee3b4d4f66525b231c3e52b6 # current release v3.1.2
+      with:
+        python-version: ${{ inputs.python-version }}
+        architecture: ${{ inputs.architecture }}
+      id: configuration
+    - name: Configure Python Runtime (with Dependency Management)
+      if: ${{ !inputs.uses-dependency-manager }}
+      uses: actions/setup-python@98f2ad02fd48d057ee3b4d4f66525b231c3e52b6 # current release v3.1.2
+      with:
+        python-version: ${{ inputs.python-version }}
+        architecture: ${{ inputs.architecture }}
+        cache: ${{ inputs.cache }}
+        cache-dependency-path: ${{ inputs.cache-dependency-path }}
+      id: configuration
