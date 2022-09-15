@@ -1,4 +1,4 @@
-name: OSCAL Automation - Setup Python
+name: OSCAL CI/CD Setup Python
 
 on:
   workflow_call:
@@ -25,7 +25,7 @@ on:
         default: '**/*/requirements.txt'
 jobs:
   configure-oscal-runtimes-python:
-    name: Configure Runtimes for OSCAL
+    name: OSCAL CI/CD Setup Python
     runs-on: ubuntu-20.04
     steps:
     - name: Configure Python Runtime (without Dependency Management)

@@ -1,4 +1,4 @@
-name: OSCAL Automation - Setup NodeJS
+name: OSCAL CI/CD Setup NodeJS
 
 on:
   workflow_call:
@@ -6,7 +6,7 @@ on:
       node-version-file:
         required: false
         type: string
-        default: .nvmrc
+        default: '**/*/.nvmrc'
       uses-dependency-manager:
         required: false
         type: boolean
@@ -21,7 +21,7 @@ on:
         default: '**/*/package.json'
 jobs:
   configure-oscal-runtimes-nodejs:
-    name: Configure Runtimes for OSCAL
+    name: OSCAL CI/CD Setup NodeJS
     runs-on: ubuntu-20.04
     steps:
     - name: Configure NodeJS Runtime (without Dependency Management)

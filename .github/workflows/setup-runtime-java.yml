@@ -1,4 +1,4 @@
-name: OSCAL Automation - Setup Java
+name: OSCAL CI/CD Setup Java
 
 on:
   workflow_call:
@@ -21,7 +21,7 @@ on:
         default: maven
 jobs:
   configure-oscal-runtimes-java:
-    name: Configure Runtimes for OSCAL
+    name: OSCAL CI/CD Setup Java
     runs-on: ubuntu-20.04
     steps:
     - name: Configure Java Runtime (without Dependency Management)
