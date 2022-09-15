@@ -14,3 +14,5 @@ jobs:
     uses: aj-stein-nist/test-gha-reusable-workflows/.github/workflows/setup-runtime-java.yml@main
   setup-runtimes-python:
     uses: aj-stein-nist/test-gha-reusable-workflows/.github/workflows/setup-runtime-python.yml@main
+  setup-runtimes-nodejs:
+    uses: aj-stein-nist/test-gha-reusable-workflows/.github/workflows/setup-runtime-nodejs.yml@main

@@ -1,0 +1,40 @@
+name: OSCAL Automation - Setup NodeJS
+
+on:
+  workflow_call:
+    inputs:
+      node-version-file:
+        required: false
+        type: string
+        default: .nvmrc
+      uses-dependency-manager:
+        required: false
+        type: boolean
+        default: false
+      cache:
+        required: false
+        type: string
+        default: npm
+      cache-dependency-path:
+        required: false
+        type: string
+        default: '**/*/package.json'
+jobs:
+  configure-oscal-runtimes-nodejs:
+    name: Configure Runtimes for OSCAL
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Configure NodeJS Runtime (without Dependency Management)
+      if: ${{ !inputs.uses-dependency-manager }}
+      uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93
+      with:
+        node-version-file: ${{ inputs.node-version-file }}
+      id: configuration-without-deps
+    - name: Configure NodeJS Runtime (with Dependency Management)
+      if: ${{ inputs.uses-dependency-manager }}
+      uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93
+      with:
+        node-version-file: ${{ inputs.node-version-file }}
+        cache: ${{ inputs.cache }}
+        cache-dependency-path: ${{ inputs.cache-dependency-path }}
+      id: configuration-with-deps
