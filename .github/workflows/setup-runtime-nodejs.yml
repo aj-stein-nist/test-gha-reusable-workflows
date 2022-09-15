@@ -6,7 +6,7 @@ on:
       node-version-file:
         required: false
         type: string
-        default: '**/*/.nvmrc'
+        default: .nvmrc
       uses-dependency-manager:
         required: false
         type: boolean
