@@ -25,16 +25,16 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: Configure Java Runtime (without Dependency Management)
-      if: ${{ inputs.uses-dependency-manager }}
-      uses: actions/setup-java@2c7a4878f5d120bd643426d54ae1209b29cc01a3
-      with:
-        java-version: ${{ inputs.java-version }}
-        distribution: ${{ inputs.distribution }}
-      id: configuration
-    - name: Configure Java Runtime (with Dependency Management)
       if: ${{ !inputs.uses-dependency-manager }}
       uses: actions/setup-java@2c7a4878f5d120bd643426d54ae1209b29cc01a3
       with:
         java-version: ${{ inputs.java-version }}
         distribution: ${{ inputs.distribution }}
-      id: configuration
+      id: configuration-without-deps
+    - name: Configure Java Runtime (with Dependency Management)
+      if: ${{ inputs.uses-dependency-manager }}
+      uses: actions/setup-java@2c7a4878f5d120bd643426d54ae1209b29cc01a3
+      with:
+        java-version: ${{ inputs.java-version }}
+        distribution: ${{ inputs.distribution }}
+      id: configuration-with-deps
