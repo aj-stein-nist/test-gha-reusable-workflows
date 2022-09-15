@@ -1,0 +1,50 @@
+name: OSCAL CI/CD Git Checkout
+
+on:
+  workflow_call:
+    inputs:
+      repository:
+        required: true
+        type: string
+      path:
+        required: true
+        type: string
+      ref:
+        required: false
+        type: string
+        default: main
+      submodules:
+        required: false
+        type: string
+        default: recursive
+      use-token-with-checkout:
+        required: false
+        type: string
+      token:
+        required: false
+        type: string
+        default: ${{ github.token }}
+jobs:
+  checkout-oscal-repos:
+    name: OSCAL CI/CD Git Checkout
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Git Checkout (with token)
+      uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      if: ${{ inputs.use-token-with-checkout }}
+      with:
+        repository: ${{ inputs.repository }}
+        path: ${{ inputs.path }}
+        ref: ${{ inputs.ref }}
+        submodules: ${{ inputs.recursive }}
+        token: ${{ inputs.token }}
+      id: checkout-with-token
+    - name: Git Checkout (without token)
+      uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      if: ${{ !inputs.use-token-with-checkout }}
+      with:
+        repository: ${{ inputs.repository }}
+        path: ${{ inputs.path }}
+        ref: ${{ inputs.ref }}
+        submodules: ${{ inputs.recursive }}
+      id: checkout-without-token

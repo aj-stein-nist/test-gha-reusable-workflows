@@ -11,12 +11,20 @@ on:
 
 jobs:
   checkout-code:
-    uses: actions/checkout@v3
+    uses: aj-stein-nist/test-gha-reusable-workflows/.github/workflows/checkout.yml@main
+    with:
+      repository: ${{ github.repository }}
+      path: main-repo
+      use-token-with-checkout: true
+      token: ${{ github.token }}
   setup-runtimes-java:
     uses: aj-stein-nist/test-gha-reusable-workflows/.github/workflows/setup-runtime-java.yml@main
+    needs: checkout-code
   setup-runtimes-python:
     uses: aj-stein-nist/test-gha-reusable-workflows/.github/workflows/setup-runtime-python.yml@main
+    needs: checkout-code
   setup-runtimes-nodejs:
     uses: aj-stein-nist/test-gha-reusable-workflows/.github/workflows/setup-runtime-nodejs.yml@main
     with:
-      node-version-file: .nvmrc
+      node-version-file: ${{ github.workspace }}/main-repo/.nvmrc
+    needs: checkout-code
